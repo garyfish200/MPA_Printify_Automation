@@ -29,10 +29,10 @@ exports.getProduct = async (productList) => {
   }
 };
 
-exports.createProduct = async (allProducts) => {
+exports.createProduct = async (allProducts, athleteName) => {
   try {
-    const logoData = await getLogoFromPrintify('66e86ddc67f170ec08d9ee6a');
-    const newProducts = await createAllProducts(allProducts, logoData);
+    const specificAthleteLogos = await findLogosFromPrintify(athleteName);
+    const newProducts = await createAllProducts(allProducts, specificAthleteLogos);
     return newProducts;
   } catch (error) {
     console.error('Error creating new product on Printify:', error);
@@ -115,16 +115,6 @@ function formatPrintAreas(printAreas, productName, logoData) {
   })
 }
 
-async function getLogoFromPrintify(logoId) {
-  try {
-    const response = await printifyAxios.get(`/uploads/${logoId}.json`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching logo from Printify:', error);
-    throw error;
-  }
-}
-
 function addNewLogo(logoData, productData) {
   return {
     ...productData,
@@ -156,16 +146,44 @@ function addNewLogo(logoData, productData) {
   };
 }
 
-// function getVariantIdsWithColor(allProducts) {
-//   return allProducts.map((product) => {
-//     return {
-//       name: product.product,
-//       variants: product.data.variants.map((variant) => {
-//         return {
-//           id: variant.id,
-//           color: variant.title,
-//         };
-//       }),
-//     };
-//   });
-// }
+async function getLogoFromPrintifyById(logoId) {
+  try {
+    const response = await printifyAxios.get(`/uploads/${logoId}.json`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching logo from Printify:', error);
+    throw error;
+  }
+}
+
+async function findLogosFromPrintify(athleteName) {
+  try {
+    const response = await printifyAxios.get(`/uploads.json?limit=100`);
+    return findAthleteLogos(response.data, athleteName);
+  } catch (error) {
+    console.error('Error fetching logo from Printify:', error);
+    throw error;
+  }
+}
+
+const findAthleteLogos = async (logoData, athleteName) => {
+  try {
+    let athleteLogos = [];
+    for (let i = 2; i < 6; i++) {
+      athleteLogos = logoData.data.filter((logo) => {
+        return logo.file_name.includes(athleteName);
+      }); 
+
+      if (athleteLogos.length > 0) {
+        break;
+      }
+      const nextPage = await printifyAxios.get(`/uploads.json?limit=100&page=${i}`);
+      logoData = nextPage.data;
+    }
+    
+    return athleteLogos;
+  } catch (error) {
+    console.error('Error finding athlete logo:', error);
+    throw error;
+  }
+}

@@ -14,8 +14,9 @@ exports.getProduct = async (req, res) => {
 exports.createProductFromExisting = async (req, res) => {
   try {
     const listOfProducts = req.body.items;
+    const athleteName = req.body.athleteName.replaceAll(' ', '');
     const allProducts = await printifyService.getProduct(listOfProducts);
-    const newProducts = await printifyService.createProduct(allProducts);
+    const newProducts = await printifyService.createProduct(allProducts, athleteName);
     res.status(201).json(newProducts);
     // res.status(201).json(allProducts);
   } catch (error) {

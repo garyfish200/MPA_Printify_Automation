@@ -54,7 +54,7 @@ const PRODUCT_ID_MAPPING = {
   "Graphic Tee": "66bcfc0936f1c06fef0a84d4",
   "Polo": "66bcf9c53d8feb8e550fc604",
   "Crewneck": "66bcfafebbe3fc2eb2048f16",
-  "Long Sleeve": "66ce64d045b567955a041578",
+  "Long Sleeve": "66e8a263c2be6ea53f0f5e66",
   "Quarter-Zip": "66bcfa2b22f8193c05068674",
   "Hoodie": "66bcfcd900fdb7c487014274",
   "Vintage Hoodie": "66bcfc78d248e88e02091af6",

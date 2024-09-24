@@ -119,8 +119,6 @@ function addNewLogo(productName, logoData, productData) {
   const oneLogo = logoData[0];
   const logoPosition = oneLogo.file_name.split("_")[1].toLowerCase();
 
-  // console.log(oneLogo, logoPosition)
-
   return {
     ...productData,
     print_areas: productData.print_areas.map((printArea) => {

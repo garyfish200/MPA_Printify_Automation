@@ -76,9 +76,9 @@ async function createAllProducts(allProducts, logoData) {
         ...product.data,
         title: `Copy of ${product.data.title}: This is a new Athlete`,
         description: `${product.data.description}\n(Copied from product ID: ${product.data.id}), this is for a new athlete's design`,
-        print_areas: formatPrintAreas(product.data.print_areas, product.product, logoData),
+        print_areas: formatPrintAreas(product.data.print_areas),
       };
-      const newProductWithNewLogo = addNewLogo(logoData, newProductData);
+      const newProductWithNewLogo = addNewLogo(product.product, logoData, newProductData);
       const response = await printifyAxios.post(`/shops/${shopId}/products.json`, newProductWithNewLogo);
       newProducts.push(response.data);
       // newProducts.push(newProductData);
@@ -91,7 +91,7 @@ async function createAllProducts(allProducts, logoData) {
   }
 }
 
-function formatPrintAreas(printAreas, productName, logoData) {
+function formatPrintAreas(printAreas) {
   return printAreas.map((printArea) => {
     return {
       ...printArea,
@@ -115,28 +115,63 @@ function formatPrintAreas(printAreas, productName, logoData) {
   })
 }
 
-function addNewLogo(logoData, productData) {
+function addNewLogo(productName, logoData, productData) {
+  const oneLogo = logoData[0];
+  const logoPosition = oneLogo.file_name.split("_")[1].toLowerCase();
+
+  // console.log(oneLogo, logoPosition)
+
   return {
     ...productData,
     print_areas: productData.print_areas.map((printArea) => {
       return {
         ...printArea,
         placeholders: printArea.placeholders.map((placeholder) => {
-          if (placeholder.position === "front") {
+          if (placeholder.position === "front" && logoPosition === "front") {
             return {
               ...placeholder,
               images: [...placeholder.images, {
-                      "id": logoData.id,
-                      "name": logoData.file_name,
-                      "type": logoData.mime_type,
-                      "height": logoData.height,
-                      "width": logoData.width,
-                      "x": 0.5,
-                      "y": 0.5,
-                      "scale": 0.9,
-                      "angle": 0
+                      "id": oneLogo.id,
+                      "name": oneLogo.file_name,
+                      "type": oneLogo.mime_type,
+                      "height": oneLogo.height,
+                      "width": oneLogo.width,
+                      "x": PRODUCT_IMAGE_DIMENSIONS[productName].x,
+                      "y": PRODUCT_IMAGE_DIMENSIONS[productName].y,
+                      "scale": PRODUCT_IMAGE_DIMENSIONS[productName].scale,
+                      "angle": PRODUCT_IMAGE_DIMENSIONS[productName].angle
                     }],
             };
+          } else if (placeholder.position === "back" && logoPosition === "both") {
+            return {
+              ...placeholder,
+              images: [{
+                "id": oneLogo.id,
+                "name": oneLogo.file_name,
+                "type": oneLogo.mime_type,
+                "height": oneLogo.height,
+                "width": oneLogo.width,
+                "x": PRODUCT_IMAGE_DIMENSIONS[productName].x,
+                "y": PRODUCT_IMAGE_DIMENSIONS[productName].y,
+                "scale": PRODUCT_IMAGE_DIMENSIONS[productName].scale,
+                "angle": PRODUCT_IMAGE_DIMENSIONS[productName].angle
+              }]
+            }
+          } else if (placeholder.position === "front" && logoPosition === "both") {
+            return {
+              ...placeholder,
+              images: [...placeholder.images, {
+                "id": oneLogo.id,
+                "name": oneLogo.file_name,
+                "type": oneLogo.mime_type,
+                "height": oneLogo.height,
+                "width": oneLogo.width,
+                "x": PRODUCT_IMAGE_DIMENSIONS[productName].x,
+                "y": PRODUCT_IMAGE_DIMENSIONS[productName].y,
+                "scale": PRODUCT_IMAGE_DIMENSIONS[productName].scale,
+                "angle": PRODUCT_IMAGE_DIMENSIONS[productName].angle
+              }]
+            }
           } else {
             return placeholder;
           }

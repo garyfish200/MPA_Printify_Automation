@@ -1,51 +1,75 @@
 const PRODUCT_IMAGE_DIMENSIONS = {
   "Vintage Tee": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Graphic Tee": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Polo": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Crewneck": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Long Sleeve": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Quarter-Zip": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Hoodie": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Vintage Hoodie": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Hat": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Stainless Steel Water Bottle": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Tumbler Mug": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
   "Golf Balls": {
-    x: 0.9,
-    y: 0.7
+    x: 0.5,
+    y: 0.5,
+    scale: 0.588235294117647,
+    angle: 0
   },
 };
 
@@ -59,9 +83,9 @@ const PRODUCT_ID_MAPPING = {
   "Hoodie": "66bcfcd900fdb7c487014274",
   "Vintage Hoodie": "66bcfc78d248e88e02091af6",
   "Hat": "66bcf8f2a083cc2fda05c936",
-  "Stainless Steel Water Bottle": "66df0c86b6b1ef27e70a4a36",
-  "Tumbler Mug": "66c38f949cec0420b20b91bc",
-  "Golf Balls": "66db4e1283dc74fefb0a9fd3"
+  "Stainless Steel Water Bottle": "66f212a988aa9b1cdf104e92",
+  "Tumbler Mug": "66f212aa68324d69830e6b58",
+  "Golf Balls": "66f1fca668324d69830e610f"
 }
 
 module.exports = {

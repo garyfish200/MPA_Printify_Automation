@@ -31,8 +31,9 @@ exports.getProduct = async (productList) => {
 
 exports.createProduct = async (allProducts, athleteName) => {
   try {
-    const specificAthleteLogos = await findLogosFromPrintify(athleteName);
-    const newProducts = await createAllProducts(allProducts, specificAthleteLogos);
+    const noWhitespaceAthleteName = athleteName.replaceAll(' ', '');
+    const specificAthleteLogos = await findLogosFromPrintify(noWhitespaceAthleteName);
+    const newProducts = await createAllProducts(allProducts, specificAthleteLogos, athleteName);
     return newProducts;
   } catch (error) {
     console.error('Error creating new product on Printify:', error);
@@ -67,15 +68,15 @@ async function getAllProducts(productList) {
   }
 }
 
-async function createAllProducts(allProducts, logoData) {
+async function createAllProducts(allProducts, logoData, athleteName) {
   try {
     const shopId = process.env.PRINTIFY_SHOP_ID;
     let newProducts = [];
     for (let product of allProducts) {
       const newProductData = {
         ...product.data,
-        title: `Copy of ${product.data.title}: This is a new Athlete`,
-        description: `${product.data.description}\n(Copied from product ID: ${product.data.id}), this is for a new athlete's design`,
+        title: `${athleteName} ${product.product}`,
+        description: `${product.data.description}\n`,
         print_areas: formatPrintAreas(product.data.print_areas),
       };
       const newProductWithNewLogo = addNewLogo(product.product, logoData, newProductData);

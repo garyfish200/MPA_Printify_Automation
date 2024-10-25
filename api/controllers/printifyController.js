@@ -13,9 +13,9 @@ exports.getProduct = async (req, res) => {
 
 exports.createProductFromExisting = async (req, res) => {
   try {
-    const listOfProducts = req.body.items;
+    const listOfProducts = req.body.items.split(',');
     console.log("Body: ", req.body);
-    console.log("Items: ", req.body.items.split(','));
+    console.log("Items: ", listOfProducts);
     const athleteName = req.body.athleteName;
     const allProducts = await printifyService.getProduct(listOfProducts);
     const newProducts = await printifyService.createProduct(allProducts, athleteName);

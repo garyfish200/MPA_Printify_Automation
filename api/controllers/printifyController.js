@@ -13,7 +13,7 @@ exports.getProduct = async (req, res) => {
 
 exports.createProductFromExisting = async (req, res) => {
   try {
-    const listOfProducts = req.body.items.split(',');
+    const listOfProducts = req.body.items.split(',').map((item) => item.trimStart());
     console.log("Body: ", req.body);
     console.log("Items: ", listOfProducts);
     const athleteName = req.body.athleteName;

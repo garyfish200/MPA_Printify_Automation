@@ -203,7 +203,7 @@ async function findLogosFromPrintify(athleteName) {
 const findAthleteLogos = async (logoData, athleteName) => {
   try {
     let athleteLogos = [];
-    for (let i = 2; i < 6; i++) {
+    for (let i = 2; i < 15; i++) {
       athleteLogos = logoData.data.filter((logo) => {
         return logo.file_name.includes(athleteName);
       }); 

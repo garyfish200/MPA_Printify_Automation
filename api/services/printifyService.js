@@ -33,7 +33,8 @@ exports.createProduct = async (allProducts, athleteName) => {
   try {
     // const noWhitespaceAthleteName = athleteName.replaceAll(' ', '');
     // const specificAthleteLogos = await findLogosFromPrintify(noWhitespaceAthleteName);
-    const newProducts = await createAllProducts(allProducts, null, athleteName);
+    // const newProducts = await createAllProducts(allProducts, null, athleteName);
+    const newProducts = await createProductsInParallel(allProducts, null, athleteName);
     return newProducts;
   } catch (error) {
     console.error('Error creating new product on Printify:', error);
@@ -88,6 +89,36 @@ async function createAllProducts(allProducts, logoData, athleteName) {
     return newProducts;
   } catch (error) {
     console.error('Error creating product on Printify:', error);
+    throw error;
+  }
+}
+
+const createProductsInParallel = async (allProducts, logoData, athleteName) => {
+  try {
+    const shopId = process.env.PRINTIFY_SHOP_ID;
+
+    // Map over allProducts to create an array of promises
+    const productPromises = allProducts.map(async (product) => {
+      const newProductData = {
+        ...product.data,
+        title: `${athleteName} ${product.product}`,
+        description: `${product.data.description}\n`,
+        print_areas: formatPrintAreas(product.data.print_areas),
+      };
+
+      // Add logo if necessary
+      // const newProductWithNewLogo = addNewLogo(product.product, logoData, newProductData);
+
+      // Send the request to Printify
+      const response = await printifyAxios.post(`/shops/${shopId}/products.json`, newProductData);
+      return response.data; // Return the response data
+    });
+
+    // Wait for all product creation promises to resolve
+    const newProducts = await Promise.all(productPromises);
+    return newProducts;
+  } catch (error) {
+    console.error('Error creating products on Printify:', error);
     throw error;
   }
 }

@@ -74,18 +74,18 @@ const PRODUCT_IMAGE_DIMENSIONS = {
 };
 
 const PRODUCT_ID_MAPPING = {
-  "Vintage Tee": "66bcfb80e2156fdee80ec3b6",
-  "Graphic Tee": "66bcfc0936f1c06fef0a84d4",
-  "Polo": "66bcf9c53d8feb8e550fc604",
-  "Crewneck": "66bcfafebbe3fc2eb2048f16",
-  "Long Sleeve": "66e8a263c2be6ea53f0f5e66",
-  "Quarter-Zip": "66bcfa2b22f8193c05068674",
-  "Hoodie": "66bcfcd900fdb7c487014274",
-  "Vintage Hoodie": "66bcfc78d248e88e02091af6",
-  "Hat": "66bcf8f2a083cc2fda05c936",
-  "Stainless Steel Water Bottle": "66f212a988aa9b1cdf104e92",
-  "Tumbler Mug": "66f212aa68324d69830e6b58",
-  "Golf Balls": "66f1fca668324d69830e610f"
+  "Vintage Tee": "672651c2e6b9cf8cea035180",
+  "Graphic Tee": "672651c95523365fcf04c5ae",
+  "Polo": "672651cdf9eb8f28dc0fe8d2",
+  "Crewneck": "672651d1e47563aba4063887",
+  "Long Sleeve": "672651d3e47563aba4063888",
+  "Quarter-Zip": "672651d508b849a3c303b1fa",
+  "Hoodie": "672651d85523365fcf04c5b1",
+  "Vintage Hoodie": "672651dbf335dff8a00a4d6e",
+  "Hat": "672651dd7f8d99dab506c5bb",
+  "Stainless Steel Water Bottle": "672651de08b849a3c303b208",
+  "Tumbler Mug": "672651e0af6addd8ef0d0c81",
+  "Golf Balls": "672651e15523365fcf04c5b6"
 }
 
 module.exports = {

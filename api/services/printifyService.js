@@ -31,9 +31,9 @@ exports.getProduct = async (productList) => {
 
 exports.createProduct = async (allProducts, athleteName) => {
   try {
-    const noWhitespaceAthleteName = athleteName.replaceAll(' ', '');
-    const specificAthleteLogos = await findLogosFromPrintify(noWhitespaceAthleteName);
-    const newProducts = await createAllProducts(allProducts, specificAthleteLogos, athleteName);
+    // const noWhitespaceAthleteName = athleteName.replaceAll(' ', '');
+    // const specificAthleteLogos = await findLogosFromPrintify(noWhitespaceAthleteName);
+    const newProducts = await createAllProducts(allProducts, null, athleteName);
     return newProducts;
   } catch (error) {
     console.error('Error creating new product on Printify:', error);
@@ -79,8 +79,8 @@ async function createAllProducts(allProducts, logoData, athleteName) {
         description: `${product.data.description}\n`,
         print_areas: formatPrintAreas(product.data.print_areas),
       };
-      const newProductWithNewLogo = addNewLogo(product.product, logoData, newProductData);
-      const response = await printifyAxios.post(`/shops/${shopId}/products.json`, newProductWithNewLogo);
+      // const newProductWithNewLogo = addNewLogo(product.product, logoData, newProductData);
+      const response = await printifyAxios.post(`/shops/${shopId}/products.json`, newProductData);
       newProducts.push(response.data);
       // newProducts.push(newProductData);
       // newProducts.push(newProductWithNewLogo);
